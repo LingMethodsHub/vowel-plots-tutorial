@@ -1,8 +1,18 @@
 ---
 title: "Vowel Plots with `ggplot2`"
 author: 
-  - name: "Joey Stanley"
-    url: "https://joeystanley.com/"
+    name: "Joseph A. Stanley"
+    corresponding: true
+    url: "joeystanley.com"
+    orcid: "0000-0002-9185-0048"
+    affiliations: 
+        name: "Brigham Young University"
+        department: "Linguistics"
+        address: "4064 JFSB"
+        city: "Provo"
+        state: "Utah"
+        country: "USA"
+        postal-code: "84602"
 date: "2022-10-18"
 image: "index_files/figure-html/unnamed-chunk-31-1.png"
 output:
