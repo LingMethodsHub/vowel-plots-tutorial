@@ -24,7 +24,7 @@ license: "CC-BY-SA-4.0"
 source("renv/activate.R")
 ```
 
-This is a tutorial on how to make vowel plots in R using the ggplot2 package. Being able to make a vowel plot is a useful skill in contemporary phonetic research, and ggplot2 is an excellent tool to get that done. In this tutorial, I'll focus on how to make plots in the F1-F2 space (*i.e.* they roughly resemble the vowel trapezoid you se on the IPA chart).
+This is a tutorial on how to make vowel plots in R using the ggplot2 package. Being able to make a vowel plot is a useful skill in contemporary phonetic research, and ggplot2 is an excellent tool to get that done. In this tutorial, I'll focus on how to make plots in the F1-F2 space (*i.e.* they roughly resemble the vowel trapezoid you see on the IPA chart).
 
 ::: callout-note
 Note that tutorial is an update to the one I published in 2018 on my personal website. It is largely the same content, with just some touch-ups to wording and code.
@@ -271,7 +271,7 @@ ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) +
 
 Aha! So now we have a vowel plot that has the points, and on top of them it has the labels for these vowels right where the averages are. Pretty cool.
 
-A couple things to note here. In the legend, notice that the dots have now all turned into little *a*'s because we're using `geom_label` now. But, something to consider is this: what additional information is the legend providing us? The answer is nothing. There is nothing that the legend says that we can't already get from the plot. So, to create a cleaner plot with less visual clutter, we really should remove the legend. We can do this with `theme(legend.position = "none")`. And now that we've removed the legend, we can remove the `breaks = c(...)` argument to `scale_color_discrete` since there's no point in modifying the order of elements in a non-existant legend.
+A couple things to note here. In the legend, notice that the dots have now all turned into little *a*'s because we're using `geom_label` now. But, something to consider is this: what additional information is the legend providing us? The answer is nothing. There is nothing that the legend says that we can't already get from the plot. So, to create a cleaner plot with less visual clutter, we really should remove the legend. We can do this with `theme(legend.position = "none")`. And now that we've removed the legend, we can remove the `breaks = c(...)` argument to `scale_color_discrete` since there's no point in modifying the order of elements in a non-existent legend.
 
 ```{r}
 ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) + 
