@@ -10,7 +10,9 @@ output:
 license: "CC-BY-SA-4.0"
 ---
 
-```{r setup, include=FALSE}
+```{r}
+#| label: setup
+#| include: false
 source("renv/activate.R")
 ```
 
@@ -220,7 +222,8 @@ It's perfectly possible to plot two (or more) different datasets in a single vis
 
 If we want to add the means, we're using a different dataset, so that right off that bat has to be overridden in our `geom_label` function:
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
     # Don't plot this yet...
     ...
     geom_label(data = means) + 
@@ -229,7 +232,8 @@ If we want to add the means, we're using a different dataset, so that right off 
 
 Because we're using `geom_label`, we're going to need to put `label = vowel` somewhere. You can put it in the main `ggplot(aes())` function with everything else and that'll work out fine:
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 # Don't plot this yet...
 ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) + 
     ...
@@ -239,7 +243,8 @@ ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) +
 
 However, we're going to have to supply our own `aes()` function within `geom_label`. The reason for that is because right now we've got `x = F2` and `y = F1` as global settings. Our new `means` dataframe doesn't have columns with those names. So we'll have to override these by adding a second `aes()` function, this time within `geom_label`:
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 # Still don't run this.
 ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) + 
     ...
