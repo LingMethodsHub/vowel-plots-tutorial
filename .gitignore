@@ -42,3 +42,8 @@ vignettes/*.pdf
 *.Rproj
 
 /.quarto/
+renv/
+
+# rendered files
+*.html
+*_files/
