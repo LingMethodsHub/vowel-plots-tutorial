@@ -1,6 +1,16 @@
 author: 
-  - name: "Joey Stanley"
+    name: "Joseph A. Stanley"
+    corresponding: true
     url: "https://joeystanley.com/"
+    orcid: "0000-0002-9185-0048"
+    affiliations: 
+        name: "Brigham Young University"
+        department: "Linguistics"
+        address: "4064 JFSB"
+        city: "Provo"
+        state: "Utah"
+        country: "USA"
+        postal-code: "84602"
 
 citation:
   collection-title: "Linguistics Methods Hub"
