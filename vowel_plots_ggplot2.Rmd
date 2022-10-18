@@ -1,11 +1,11 @@
 ---
-title: "Vowel Plots with ggplot2"
-author: "Joey Stanley"
+title: Vowel Plots with `ggplot2`
+author: 
+  - name: "Joey Stanley"
+    url: "https://joeystanley.com/"
 date: "2022-10-18"
-output: 
-    html_document:
-        toc: true
-        toc_float: true
+output:
+  html: "default"
 license: "CC-BY-SA-4.0"
 ---
 
