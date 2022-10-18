@@ -10,7 +10,7 @@ license: "CC-BY-SA-4.0"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+source("renv/activate.R")
 ```
 
 This is a tutorial on how to make vowel plots in R using the ggplot2 package. Being able to make a vowel plot is a useful skill in contemporary phonetic research, and ggplot2 is an excellent tool to get that done. In this tutorial, I'll focus on how to make plots in the F1-F2 space (*i.e.* they roughly resemble the vowel trapezoid you se on the IPA chart).
