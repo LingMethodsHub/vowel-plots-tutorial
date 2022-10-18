@@ -1,5 +1,5 @@
 ---
-title: "Vowel Plots with ggplot2"
+title: "Vowel Plots with `ggplot2`"
 author: 
     name: "Joseph A. Stanley"
     corresponding: true
@@ -14,6 +14,7 @@ author:
         country: "USA"
         postal-code: "84602"
 date: "2022-10-18"
+image: "index_files/figure-html/unnamed-chunk-31-1.png"
 output:
   html: "default"
 license: "CC-BY-SA-4.0"
