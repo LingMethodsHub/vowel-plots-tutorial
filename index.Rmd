@@ -15,7 +15,9 @@ source("renv/activate.R")
 
 This is a tutorial on how to make vowel plots in R using the ggplot2 package. Being able to make a vowel plot is a useful skill in contemporary phonetic research, and ggplot2 is an excellent tool to get that done. In this tutorial, I'll focus on how to make plots in the F1-F2 space (*i.e.* they roughly resemble the vowel trapezoid you se on the IPA chart).
 
-*Note that tutorial is an update to the one I published in 2018 on my personal website. It is largely the same content, with just some touch-ups to wording and code.*
+::: callout-note
+Note that tutorial is an update to the one I published in 2018 on my personal website. It is largely the same content, with just some touch-ups to wording and code.
+:::
 
 For this workshop, we'll use the `tidyverse` package, which contains `dplyr` and `ggplot2`. The former will be used to manage and manipulate our data. The latter is for plotting. We'll use one other package, one of my own called `joeysvowels`, which is just a simple package containing some handy datasets specifically designed for tutorials like this. The package can be installed directly from Github using the `install_packages` function in the `remotes` package.
 
@@ -26,7 +28,7 @@ library(tidyverse)
 library(joeysvowels)
 ```
 
-Of course you're welcome to use your own data. 
+Of course you're welcome to use your own data.
 
 ## Read in and process data
 
@@ -39,14 +41,14 @@ midpoints
 
 As you can see we have the following columns
 
-* `vowel_id`: a unique identifier for every vowel token
-* `start`: the time (in seconds) from the beginning of the recording to vowel's onset.
-* `end`: the time (in seconds) from the beginning of the recording to the vowel's offset.
-* `F1`, `F2`, `F3`, `F4`: the first four formant frequencies.
-* `word`: an IPA transcription of the word 
-* `pre`: the onset of the syllable
-* `vowel`: the vowel. Here I use [Wells' Lexical sets](https://en.wikipedia.org/wiki/Lexical_set), which is typical in English dialectology. 
-* `fol`: the code of the syllable
+-   `vowel_id`: a unique identifier for every vowel token
+-   `start`: the time (in seconds) from the beginning of the recording to vowel's onset.
+-   `end`: the time (in seconds) from the beginning of the recording to the vowel's offset.
+-   `F1`, `F2`, `F3`, `F4`: the first four formant frequencies.
+-   `word`: an IPA transcription of the word
+-   `pre`: the onset of the syllable
+-   `vowel`: the vowel. Here I use [Wells' Lexical sets](https://en.wikipedia.org/wiki/Lexical_set), which is typical in English dialectology.
+-   `fol`: the code of the syllable
 
 With that in mind, we're ready to start making some vowel plots!
 
@@ -64,7 +66,7 @@ It's just a blank, gray rectangle, but it is valid code. To make this actually u
 ggplot(midpoints)
 ```
 
-Okay still no visualization, but we're on our way. The next part of a `ggplot` function is what's called the `mapping` argument. This is where you tell `ggplot` which columns of your data should correspond to what parts of the visualization. Traditionally in vowel plots, we want F2 along the *x*-axis and F1 along the *y*-axis. We can do that using the `aes` function and specify that we want to work with the columns called `F1` and `F2` from our spreadsheet. 
+Okay still no visualization, but we're on our way. The next part of a `ggplot` function is what's called the `mapping` argument. This is where you tell `ggplot` which columns of your data should correspond to what parts of the visualization. Traditionally in vowel plots, we want F2 along the *x*-axis and F1 along the *y*-axis. We can do that using the `aes` function and specify that we want to work with the columns called `F1` and `F2` from our spreadsheet.
 
 ```{r}
 ggplot(midpoints, aes(x = F2, y = F1))
@@ -77,7 +79,7 @@ ggplot(midpoints, aes(x = F2, y = F1)) +
     geom_point()
 ```
 
-Aha! We now have a scatterplot! It's not the most useful one because we can't tell what vowel or word each point came from. But it is a start. 
+Aha! We now have a scatterplot! It's not the most useful one because we can't tell what vowel or word each point came from. But it is a start.
 
 ## Themes
 
@@ -123,7 +125,7 @@ Okay, much better. Now we can see that the teal FLEECE vowel is in the top left,
 
 If you want to change the order of the colors and the order in the legend, there are two ways to do that. The first is by leaving your underlying data alone and making superficial changes only within `ggplot` itself. This is a useful thing to know how to do, but I won't cover that here. If you're interested, I'd highly recommend [this page](http://www.cookbook-r.com/Graphs/Legends_(ggplot2)/) on that.
 
-At least for the order of the vowels, what I think is the most useful option is to actually modify your dataset and then plot the modified version. The way to do this to overwrite the `vowel` column in our `midpoints` dataset, and, using  the `factor` function,  manually specifying the order you want them to be in. The actual data itself doesn't change, but what we're doing is modifying how R treats this column under the hood. This is the order that I typically do, but you're of course free to do whatever you want.
+At least for the order of the vowels, what I think is the most useful option is to actually modify your dataset and then plot the modified version. The way to do this to overwrite the `vowel` column in our `midpoints` dataset, and, using the `factor` function, manually specifying the order you want them to be in. The actual data itself doesn't change, but what we're doing is modifying how R treats this column under the hood. This is the order that I typically do, but you're of course free to do whatever you want.
 
 ```{r}
 midpoints$vowel <- factor(midpoints$vowel, levels = c("FLEECE", "KIT", "FACE", "DRESS", "TRAP", 
@@ -162,11 +164,11 @@ Cool. Now the colors are distinct from one another and the order of the legend i
 
 ## Adding vowel means
 
-The problem with the plot the way it is, is you still have to constantly check back and forth between the legend and the plot to see what vowel you're looking at. An easier solution would be to plot the name of the vowel itself inside of its cluster. 
+The problem with the plot the way it is, is you still have to constantly check back and forth between the legend and the plot to see what vowel you're looking at. An easier solution would be to plot the name of the vowel itself inside of its cluster.
 
-One solution that I think I've seen before is to use the `stat_summary` function. Supposedly this works, and if you know how to use it, by all means go for it. I've never gotten it to work and I found a workaround that I like that I think offers more flexibility anyway. It involves creating a separate dataset and essentially overlaying a second scatterplot over the main one. 
+One solution that I think I've seen before is to use the `stat_summary` function. Supposedly this works, and if you know how to use it, by all means go for it. I've never gotten it to work and I found a workaround that I like that I think offers more flexibility anyway. It involves creating a separate dataset and essentially overlaying a second scatterplot over the main one.
 
-To create this, I pull out some black magic from the `dplyr` package. First, I start with the `midpoints` dataset. I then "pipe" it (the `%>%` function) to the `summarize` function. This function makes it easy to get summary statistics from your data. We're creating a new, arbitrarily-named column called `mean_F1`, which is calculated as the mean of the values in the `F1` column. Same thing for `mean_F2`. However, as it is, we'll end up with two numbers: the average F1 and F2 of all your data, which would probably be somewhere near the middle of your vowel space. 
+To create this, I pull out some black magic from the `dplyr` package. First, I start with the `midpoints` dataset. I then "pipe" it (the `%>%` function) to the `summarize` function. This function makes it easy to get summary statistics from your data. We're creating a new, arbitrarily-named column called `mean_F1`, which is calculated as the mean of the values in the `F1` column. Same thing for `mean_F2`. However, as it is, we'll end up with two numbers: the average F1 and F2 of all your data, which would probably be somewhere near the middle of your vowel space.
 
 ```{r}
 means <- midpoints %>%
@@ -185,7 +187,7 @@ means <- midpoints %>%
     print()
 ```
 
-This new dataset, `means`, is a perfectly good, stand-alone dataset that we can plot by itself. Note that because we called the columns `mean_F1` and `mean_F2`, we'll have to use those in the `ggplot2` function. 
+This new dataset, `means`, is a perfectly good, stand-alone dataset that we can plot by itself. Note that because we called the columns `mean_F1` and `mean_F2`, we'll have to use those in the `ggplot2` function.
 
 ```{r}
 ggplot(means, aes(x = mean_F2, y = mean_F1)) + 
@@ -211,9 +213,9 @@ ggplot(means, aes(x = mean_F2, y = mean_F1, label = vowel)) +
     theme_minimal()
 ```
 
-Perfect. So we've seen how to plot the points themselves, and now we've seen how to plot the means. Now comes the fun part of actually overlaying them into one plot. 
+Perfect. So we've seen how to plot the points themselves, and now we've seen how to plot the means. Now comes the fun part of actually overlaying them into one plot.
 
-It's perfectly possible to plot two (or more) different datasets in a single visualization, but you'll have to be careful about the `aes()` functions. Anything in the `ggplot(aes())` function will apply to all other layers, unless they're overridden. That's why we didn't need to provide any additional information in `geom_point` because it *inherited* all its information (the data, the axes, the color) from `ggplot`. 
+It's perfectly possible to plot two (or more) different datasets in a single visualization, but you'll have to be careful about the `aes()` functions. Anything in the `ggplot(aes())` function will apply to all other layers, unless they're overridden. That's why we didn't need to provide any additional information in `geom_point` because it *inherited* all its information (the data, the axes, the color) from `ggplot`.
 
 If we want to add the means, we're using a different dataset, so that right off that bat has to be overridden in our `geom_label` function:
 
@@ -256,7 +258,7 @@ ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) +
     theme_minimal()
 ```
 
-Aha! So now we have a vowel plot that has the points, and on top of them it has the labels for these vowels right where the averages are. Pretty cool. 
+Aha! So now we have a vowel plot that has the points, and on top of them it has the labels for these vowels right where the averages are. Pretty cool.
 
 A couple things to note here. In the legend, notice that the dots have now all turned into little *a*'s because we're using `geom_label` now. But, something to consider is this: what additional information is the legend providing us? The answer is nothing. There is nothing that the legend says that we can't already get from the plot. So, to create a cleaner plot with less visual clutter, we really should remove the legend. We can do this with `theme(legend.position = "none")`. And now that we've removed the legend, we can remove the `breaks = c(...)` argument to `scale_color_discrete` since there's no point in modifying the order of elements in a non-existant legend.
 
@@ -313,10 +315,9 @@ means <- midpoints %>%
     summarize(across(c(F1, F2), mean))
 ```
 
-
 ## Ellipses
 
-One final thing that would be good to show in a vowel plot are ellipses. These are often used to get an idea of the distribution of the vowels or to show degree of overlap. Fortunately, they're pretty easy to implement (a lot easier than means at least). The main function that takes care of these is `stat_ellipse`. 
+One final thing that would be good to show in a vowel plot are ellipses. These are often used to get an idea of the distribution of the vowels or to show degree of overlap. Fortunately, they're pretty easy to implement (a lot easier than means at least). The main function that takes care of these is `stat_ellipse`.
 
 ```{r}
 ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) + 
@@ -345,7 +346,7 @@ ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) +
 
 ### Tangent: Ordering
 
-You might be wondering why I order the layers in the block of code the way I do. For the most part, the order doesn't matter, but for some things it does. So if you look carefully at the above plot, you'll see that the ellipses lines actually cover the labels. The reason for that is simply because the `stat_ellipse` function came after `geom_label` in the block. I think it looks better with the labels on top, so you can switch those. 
+You might be wondering why I order the layers in the block of code the way I do. For the most part, the order doesn't matter, but for some things it does. So if you look carefully at the above plot, you'll see that the ellipses lines actually cover the labels. The reason for that is simply because the `stat_ellipse` function came after `geom_label` in the block. I think it looks better with the labels on top, so you can switch those.
 
 ```{r}
 ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) + 
@@ -359,7 +360,7 @@ ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) +
     theme(legend.position = "none")
 ```
 
-Another piece of ordering that matters is `theme_classic` and `theme()`. The second one, which removes the legend, must go after `theme_classic`. Basically, the reason is `theme_classic` has `theme` built into it, and it specifies that the legend goes on the right side. So if you put `theme` first, it'll get overwritten by `theme_classic`. But if you put `theme` after, it'll overwrite things in `theme_classic`. 
+Another piece of ordering that matters is `theme_classic` and `theme()`. The second one, which removes the legend, must go after `theme_classic`. Basically, the reason is `theme_classic` has `theme` built into it, and it specifies that the legend goes on the right side. So if you put `theme` first, it'll get overwritten by `theme_classic`. But if you put `theme` after, it'll overwrite things in `theme_classic`.
 
 As far as I can tell, most of the other things like `scale_x_reverse`, `scale_y_reverse`, and `scale_color_discrete` can go anywhere. Generally, I order my block with the important things first (like `geom_point` since this is a scatterplot after all), then the small cosmetic changes (like `scale_x_reverse`), and then any themes.
 
@@ -379,7 +380,7 @@ ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) +
     theme(legend.position = "none")
 ```
 
-That's one way to clean it up. We could also keep them but make them a bit transparent by adding the `alpha` argument. The range of values for `alpha` is from 0 to 1, with 1 being completely opaque and 0 being invisible. An `alpha` level of `0.2` means that it takes 5 (0.2 = 1/5) overlapping points to become completely opaque. In other words it's only shaded in 20%. 
+That's one way to clean it up. We could also keep them but make them a bit transparent by adding the `alpha` argument. The range of values for `alpha` is from 0 to 1, with 1 being completely opaque and 0 being invisible. An `alpha` level of `0.2` means that it takes 5 (0.2 = 1/5) overlapping points to become completely opaque. In other words it's only shaded in 20%.
 
 ```{r}
 ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) + 
@@ -421,7 +422,6 @@ ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) +
     theme(legend.position = "none")
 ```
 
-
 ### Shaded ellipses
 
 I want to touch on how to shade the ellipses in. This takes slightly more finagling within `stat_ellipse`, but the result is pretty cool.
@@ -439,7 +439,7 @@ ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) +
     theme(legend.position = "none")
 ```
 
-Okay, so that has the effect of filling them all in black. It's good that we got them filled in, but that's probably not exactly what we had in mind though. Let's make them all a bit transparent by adding the `alpha = 0.2` argument as a part of `stat_ellipse`. 
+Okay, so that has the effect of filling them all in black. It's good that we got them filled in, but that's probably not exactly what we had in mind though. Let's make them all a bit transparent by adding the `alpha = 0.2` argument as a part of `stat_ellipse`.
 
 ```{r}
 ggplot(midpoints, aes(x = F2, y = F1, color = vowel, label = vowel)) + 
@@ -524,7 +524,7 @@ ggplot(cot_caught, aes(x = F2, y = F1, color = vowel, label = vowel, shape = vow
     theme(legend.position = "none")
 ```
 
-The trick here is to use `geom_text` instead of `geom_point`. Note that `geom_text` is very similar to `geom_label`, which is what we used for the means. The only difference I've been able to see is that there's a nice little box around `geom_label` and not one for `geom_text`. 
+The trick here is to use `geom_text` instead of `geom_point`. Note that `geom_text` is very similar to `geom_label`, which is what we used for the means. The only difference I've been able to see is that there's a nice little box around `geom_label` and not one for `geom_text`.
 
 ```{r}
 ggplot(cot_caught, aes(x = F2, y = F1, color = vowel, label = vowel, shape = vowel)) + 
