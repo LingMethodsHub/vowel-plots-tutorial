@@ -1,9 +1,10 @@
 ---
-title: Vowel Plots with `ggplot2`
+title: "Vowel Plots with `ggplot2`"
 author: 
   - name: "Joey Stanley"
     url: "https://joeystanley.com/"
 date: "2022-10-18"
+image: "index_files/figure-html/unnamed-chunk-31-1.png"
 output:
   html: "default"
 license: "CC-BY-SA-4.0"
