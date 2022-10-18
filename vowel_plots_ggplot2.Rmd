@@ -14,10 +14,8 @@ author:
         country: "USA"
         postal-code: "84602"
 date: "2022-10-18"
-output: 
-    html_document:
-        toc: true
-        toc_float: true
+output:
+  html: "default"
 license: "CC-BY-SA-4.0"
 ---
 
