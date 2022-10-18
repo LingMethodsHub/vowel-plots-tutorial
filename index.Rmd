@@ -3,7 +3,7 @@ title: "Vowel Plots with `ggplot2`"
 author: 
     name: "Joseph A. Stanley"
     corresponding: true
-    url: "joeystanley.com"
+    url: "https://joeystanley.com/"
     orcid: "0000-0002-9185-0048"
     affiliations: 
         name: "Brigham Young University"
