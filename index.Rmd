@@ -65,7 +65,7 @@ As you can see we have the following columns
 -   `word`: an IPA transcription of the word
 -   `pre`: the onset of the syllable
 -   `vowel`: the vowel. Here I use [Wells' Lexical sets](https://en.wikipedia.org/wiki/Lexical_set), which is typical in English dialectology.
--   `fol`: the code of the syllable
+-   `fol`: the coda of the syllable
 
 With that in mind, we're ready to start making some vowel plots!
 
